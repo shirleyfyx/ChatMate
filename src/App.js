@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
+import firebase from 'firebase/compat/app'; 
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth'; 
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -23,14 +23,64 @@ const firestore = firebase.firestore();
 
 function App() {
 
+  const [user] = useAuthState(auth);
+
   return (
     <div className="App">
       <header className="App-header">
        
       </header>
 
+      <section>
+        {user ? <ChatRoom /> :<SignIn />}
+      </section>
+
     </div>
   );
+}
+
+const SignIn = () => {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithGoogle(provider);
+  }
+
+  return (
+    <button onClick={signInWithGoogle}>Sign in with Google</button>
+  )
+}
+
+const SignOut = () => {
+  return auth.currentUser && (
+    <button onClick={() => auth.signOut()}>Sign Out</button>
+  )
+}
+
+const ChatRoom = () => {
+  const messagesRef = firestore.collection('messages');
+  const query = messagesRef.orderBy('createdAt').limit(25);
+
+  const [messages] = useCollectionData(query, {idField: 'id'});
+
+  return (
+    <>
+      <div>
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+      </div>
+    </>
+  )
+}
+
+const ChatMessage = (props) => {
+  const { text, uid, photoURL } = props.message;
+  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'recieved';
+  return (
+    <div className={'message ${messageClass}'}>
+      <img src={photoURL} />
+      <p>{text}</p>
+    </div>
+
+  )
 }
 
 export default App;
