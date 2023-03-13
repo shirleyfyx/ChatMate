@@ -9,7 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
-  apiKey: "AIzaSyCXfjjROq6Ft2xjzx5PVSHr93uo1UMC-p0",
+  apiKey: process.env.API_KEY,
   authDomain: "chatmate-aab26.firebaseapp.com",
   projectId: "chatmate-aab26",
   storageBucket: "chatmate-aab26.appspot.com",
