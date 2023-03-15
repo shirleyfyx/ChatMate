@@ -4,7 +4,6 @@ import './App.css';
 import firebase from 'firebase/compat/app'; 
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth'; 
-
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
@@ -28,8 +27,9 @@ function App() {
   return (
     <div className="App">
       <header>
-       
+       <SignOut />
       </header>
+
 
       <section>
         {user ? <ChatRoom /> :<SignIn />}
@@ -42,13 +42,17 @@ const SignIn = () => {
 
   const signInWithGoogle = () => {
 
+    console.log("Sign in")
+
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithGoogle(provider);
+    auth.signInWithPopup(provider);
     //Pop up window to sign in with Google.
   }
 
   return (
-    <button onClick={signInWithGoogle}>Sign in with Google</button>
+    <>
+    <button className="sign-in" onClick={signInWithGoogle}>Sign in with Google</button>
+    </>
   )
 }
 
@@ -59,7 +63,7 @@ const SignOut = () => {
   )
 }
 
-const ChatRoom = () => {
+function ChatRoom() {
 
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createAt').limit(25);
@@ -86,10 +90,10 @@ const ChatRoom = () => {
   }
 
   return (
-    <>
-      <div>
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-      </div>
+  
+    <div>
+      
+      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
 
       <form onSubmit={sendMessage}>
 
@@ -98,7 +102,7 @@ const ChatRoom = () => {
         <button type="submit">🕊️</button>
 
       </form>
-    </>
+    </div>
   )
 }
 
@@ -110,7 +114,7 @@ const ChatMessage = (props) => {
   return (
     <div className = {`message ${messageClass}`}>
       <img src={photoURL} />
-      <p>{text}</p>
+      <p>{text}</p> 
     </div>
   )
 }
