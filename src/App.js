@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import './App.css';
 
 import firebase from 'firebase/compat/app'; 
@@ -65,6 +65,8 @@ const SignOut = () => {
 
 function ChatRoom() {
 
+  const scroll = useRef();
+
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createAt').limit(25);
 
@@ -87,14 +89,23 @@ function ChatRoom() {
     //create new document in firestore.
 
     setFormValue('');
+
+    scroll.current.scrollIntoView({ behavior:'smooth'});
   }
 
   return (
   
     <div>
-      
-      {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
 
+      <main>
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+
+        <div ref={scroll}>
+
+        </div>
+
+      </main>
+      
       <form onSubmit={sendMessage}>
 
         <input value={formValue} onChange={(e) => setFormValue(e.target.value)}/>
