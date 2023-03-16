@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <header>
        <SignOut />
-       <h1>We are ChatMates!</h1>
+       <h1>🕊️🕊️🕊️We are ChatMates!🕊️🕊️🕊️</h1>
       </header>
 
 
