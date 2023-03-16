@@ -4,5 +4,5 @@ ChatMate is a web application that allows users to chat with each other in real-
 
 <p>The app uses Firebase Authentication for user authentication and Firebase Cloud Firestore for storing messages.
 
-<p>Feel free to sign in with Google and become a ChatMate with me! 
+<p>Feel free to sign in with Google and become a ChatMate with me! 	:woman_juggling:
 <p>https://chatmate-with-shirley.netlify.app
