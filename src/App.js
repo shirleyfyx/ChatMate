@@ -125,7 +125,9 @@ const ChatMessage = (props) => {
 
   return (
     <div className = {`message ${messageClass}`}>
-      <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
+      <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} 
+      alt="User avatar"  // added alt attribute
+      />
       <p>{text}</p> 
     </div>
   )
