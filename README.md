@@ -6,3 +6,5 @@ ChatMate is a web application that allows users to chat with each other in real-
 
 <p>Feel free to sign in with Google and become a ChatMate with me! 	:woman_juggling:
 <p>https://chatmate-for-friends.netlify.app/
+
+![image](https://github.com/shirleyfyx/ChatMate/assets/109609935/3843d20d-1eda-4807-96a2-1a38e56c0a35)
